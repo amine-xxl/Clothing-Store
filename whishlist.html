@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Your Wishlist | Digital Partners</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet" />
+    <link rel="icon" href="minilogo.png" type="image/x-icon" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <style>
+        /* ...copy styles from bag.html... */
+        body { margin: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f8f8f8; }
+        .navbar-brand img { height: 40px; }
+        .nav-link { font-weight: 500; font-size: 0.9rem; color: #333; position: relative; }
+        .nav-link::after { content: ""; position: absolute; bottom: 0; left: 50%; transform: translateX(-50%) scaleX(0); transform-origin: center; height: 2px; width: 100%; background-color: #112180; transition: transform 0.3s ease; }
+        .nav-link:hover::after { transform: translateX(-50%) scaleX(1); }
+        .form-control { width: 250px; }
+        .icon { font-size: 1.2rem; margin-right: 4px; }
+        .icon-group {
+    position: relative;
+}
+        .icon-group:hover { background-color: rgb(235, 235, 235); border-radius: 10px; transition: background-color 0.3s; }
+        a { text-decoration: none; color: #333; }
+        .wishlist-container { max-width: 1200px; margin: 2rem auto; padding: 0 1rem; }
+        .wishlist-header h1 { font-weight: 600; color: #111; text-align: center; margin-bottom: 2rem; }
+        .wishlist-items, .wishlist-summary { background-color: white; border-radius: 8px; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05); padding: 1.5rem; }
+        .wishlist-item { display: flex; align-items: center; padding: 1rem 0; border-bottom: 1px solid #eee; }
+        .wishlist-item:last-child { border-bottom: none; }
+        .item-image { width: 80px; height: 80px; object-fit: cover; border-radius: 4px; margin-right: 1.5rem; }
+        .item-details { flex-grow: 1; }
+        .item-name { font-weight: 600; margin-bottom: 0.5rem; }
+        .item-category { color: #666; font-size: 0.9rem; }
+        .remove-btn { background-color: #ff4d4d; color: white; border: none; padding: 10px 15px; border-radius: 5px; cursor: pointer; font-size: 1rem; transition: background-color 0.3s; }
+        .remove-btn:hover { background-color: #e60000; }
+        .bag-count {
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    background-color: #112180;
+    color: white;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.8rem;
+    font-weight: bold;
+    z-index: 2;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.12);
+}
+        @media (max-width: 768px) {
+            .wishlist-item { flex-direction: column; align-items: flex-start; }
+            .item-image { margin-bottom: 1rem; margin-right: 0; }
+            .form-control { width: 100px; }
+        }
+        footer {
+    background-color: #f8f9fa;
+    padding: 30px 0;
+}
+
+.footer-links a {
+    color: #333;
+    text-decoration: none;
+    display: block;
+    margin-bottom: 10px;
+    transition: color 0.3s ease;
+}
+
+.footer-links a:hover {
+    color: #112190;
+}
+
+address a:hover {
+    color: #112190;
+}
+    </style>
+</head>
+<body>
+    <!-- Navbar (copy from bag.html) -->
+    <nav class="navbar navbar-expand-lg bg-white border-bottom">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#"><img src="logoecriture.png" alt="Logo" /></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavbar">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="mainNavbar">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item mx-3"><a class="nav-link" href="index.html">HOME</a></li>
+                    <li class="nav-item mx-3"><a class="nav-link" href="men.html">MEN <sup style="font-size: 0.9rem; color: #dc3545; font-weight: 700;">Promo</sup></a></li>
+                    <li class="nav-item mx-3"><a class="nav-link" href="women.html">WOMEN</a></li>
+                    <li class="nav-item mx-3"><a class="nav-link" href="kids.html">KIDS <sup style="font-size: 0.9rem; color: #dc3545; font-weight: 700;">Promo</sup></a></li>
+                    <li class="nav-item mx-3"><a class="nav-link" href="contact.php">CONTACT-US</a></li>
+                </ul>
+                <form class="d-flex mx-2 align-items-center">
+                    <i class="bi bi-search icon"></i>
+                    <input class="form-control me-2" type="search" placeholder="Search for products" />
+                </form>
+                <div class="text-center mx-2 icon-group p-2">
+                    <a href="whishlist.html">
+                        <i class="bi bi-cart icon"></i>
+                        <div class="icon-text">Wishlist</div>
+                        <span class="bag-count" id="wishlistCounter">0</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <main class="container py-5">
+        <h2 class="mb-4">Your Wishlist</h2>
+        <div class="row">
+            <div class="col-md-12">
+                <div id="wishlistItemsContainer">
+                    <!-- Wishlist items will be rendered here -->
+                </div>
+                <div id="wishlistActions" class="mt-3"></div>
+            </div>
+        </div>
+    </main>
+    <!-- Footer (copy from bag.html) -->
+    <hr class="my-4 bg-light">
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <h5 class="mb-4">Follow <strong>@Digital Partners</strong></h5>
+                    <div class="footer-links">
+                        <a href="#"><i class="bi bi-facebook"></i> Facebook</a>
+                        <a href="#"><i class="bi bi-instagram"></i> Instagram</a>
+                        <a href="#"><i class="bi bi-pinterest"></i> Pinterest</a>
+                        <a href="#"><i class="bi bi-tiktok"></i> TikTok</a>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <h5 class="mb-4">Quick Links</h5>
+                    <div class="footer-links">
+                        <a href="index.html">Home</a>
+                        <a href="men.html">Men</a>
+                        <a href="women.html">Women</a>
+                        <a href="kids.html">Kids</a>
+                        <a href="contact.php">Contact-Us</a>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <h5 class="mb-4">Customer Service</h5>
+                    <div class="footer-links">
+                        <a href="signup.php">My Account</a>
+                        <a href="whishlist.html">Wishlist</a>
+                        <a href="bag.html">Bag</a>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <h5 class="mb-4">Contact Us</h5>
+                    <address>
+                        <p><a href="https://maps.app.goo.gl/iKbqP3HF9yxf2kjH7"><i class="fas fa-map-marker-alt me-2"></i> ISTA AL ADARISSA</a></p>
+                        <p><i class="fas fa-phone me-2"></i> (+212)612345678</p>
+                        <p><a href="mailto:digitalpartner212@gmail.com"><i class="fas fa-envelope me-2"></i> digitalpartner212@gmail.com</p></a>
+                    </address>
+                </div>
+            </div>
+            <hr class="my-4 bg-light">
+            <div class="row">
+                <div class="text-center">
+                    <p class="mb-0">&copy; 2025. Tous droits réservés.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <script src="cart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+function showNotification(message) {
+    const notification = document.createElement('div');
+    notification.textContent = message;
+    notification.setAttribute('aria-label', 'Notification');
+    notification.style.position = 'fixed';
+    notification.style.bottom = '20px';
+    notification.style.right = '20px';
+    notification.style.backgroundColor = '#112180';
+    notification.style.color = 'white';
+    notification.style.padding = '15px 25px';
+    notification.style.borderRadius = '5px';
+    notification.style.zIndex = '1000';
+    notification.style.transition = 'opacity 0.5s';
+    document.body.appendChild(notification);
+    setTimeout(() => {
+        notification.style.opacity = '0';
+        setTimeout(() => notification.remove(), 500);
+    }, 2000);
+}
+
+function renderWishlistItems() {
+    const wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
+    const container = document.getElementById('wishlistItemsContainer');
+    const actions = document.getElementById('wishlistActions');
+    container.innerHTML = '';
+    actions.innerHTML = '';
+    if (wishlist.length === 0) {
+        container.innerHTML = '<p>Your wishlist is empty</p>';
+        updateWishlistCounter();
+        return;
+    }
+    wishlist.forEach((item, index) => {
+        const itemElement = document.createElement('div');
+        itemElement.className = 'wishlist-item mb-4 p-3 border-bottom';
+        itemElement.innerHTML = `
+            <div class="row align-items-center">
+                <div class="col-md-2">
+                    <img src="${item.image}" alt="${item.name}" class="img-fluid" style="max-height: 100px;">
+                </div>
+                <div class="col-md-6">
+                    <h5>${item.name}</h5>
+                    <p>Size: ${item.selectedSize} | Color: ${item.selectedColor}</p>
+                    <p class="item-category">${item.category || ''}</p>
+                </div>
+                <div class="col-md-2">
+                    <p>${item.price} DH</p>
+                </div>
+                <div class="col-md-2 d-flex flex-column align-items-center gap-2">
+                    <button class="remove-btn d-flex align-items-center justify-content-center w-100 mb-2 py-2 fs-6" onclick="removeWishlistItem(${index})" style="background:linear-gradient(90deg,#ff4d4d,#e60000);box-shadow:0 2px 8px rgba(255,77,77,0.12);border:none;min-width:120px;">
+                        <i class="bi bi-trash me-2 fs-5"></i> <span>Remove</span>
+                    </button>
+                    <button class="remove-btn d-flex align-items-center justify-content-center w-100 py-2 fs-6" onclick="moveWishlistItemToCart(${index})" style="background:linear-gradient(90deg,#112180,#3a4ad9);box-shadow:0 2px 8px rgba(17,33,128,0.12);border:none;min-width:120px;">
+                        <i class="bi bi-bag-plus me-2 fs-5"></i> <span>Move to Bag</span>
+                    </button>
+                </div>
+            </div>
+        `;
+        container.appendChild(itemElement);
+    });
+    if (wishlist.length > 0) {
+        actions.innerHTML = `<button class="btn btn-danger" onclick="clearWishlist()">Clear Wishlist</button>`;
+    }
+    updateWishlistCounter();
+}
+
+function removeWishlistItem(index) {
+    const wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
+    if (index >= 0 && index < wishlist.length) {
+        wishlist.splice(index, 1);
+        localStorage.setItem('wishlist', JSON.stringify(wishlist));
+        renderWishlistItems();
+        showNotification('Item removed from wishlist');
+    }
+}
+
+function moveWishlistItemToCart(index) {
+    const wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
+    if (index >= 0 && index < wishlist.length) {
+        addToCart(wishlist[index]);
+        showNotification('Item moved to bag');
+        removeWishlistItem(index);
+        updateCartCounter();
+    }
+}
+
+function clearWishlist() {
+    localStorage.removeItem('wishlist');
+    renderWishlistItems();
+    showNotification('Wishlist cleared');
+    updateWishlistCounter();
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+    renderWishlistItems();
+    updateCartCounter();
+    updateWishlistCounter();
+});
+function setDarkMode(enabled) {
+    var body = document.body;
+    var logo = document.getElementById('mainLogo');
+    var icon = document.getElementById('darkModeIcon');
+    if (enabled) {
+        body.classList.add('dark-mode');
+        if (logo) logo.src = 'logoecriture white.png';
+        if (icon) {
+            icon.innerHTML = '<i class="bi bi-moon-fill"></i>';
+        }
+    } else {
+        body.classList.remove('dark-mode');
+        if (logo) logo.src = 'logoecriture.png';
+        if (icon) {
+            icon.innerHTML = '<i class="bi bi-sun-fill"></i>';
+        }
+    }
+    if (logo) {
+        logo.style.height = '30px';
+        logo.style.width = 'auto';
+        logo.style.maxWidth = '160px';
+    }
+}
+document.addEventListener('DOMContentLoaded', function() {
+    renderWishlistItems();
+    updateCartCounter();
+    updateWishlistCounter();
+    var switchInput = document.getElementById('darkModeSwitch');
+    var icon = document.getElementById('darkModeIcon');
+    if (localStorage.getItem('darkMode') === 'true') {
+        switchInput.checked = true;
+        setDarkMode(true);
+    } else {
+        setDarkMode(false);
+    }
+    switchInput.addEventListener('change', function() {
+        setDarkMode(this.checked);
+        localStorage.setItem('darkMode', this.checked);
+    });
+});
+    </script>
+</body>
+</html>

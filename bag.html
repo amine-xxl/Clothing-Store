@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Your Bag | Digital Partners</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet" />
+    <link rel="icon" href="minilogo.png" type="image/x-icon" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f8f8f8;
+        }
+
+        .navbar-brand img {
+            height: 40px;
+        }
+
+        .nav-link {
+            font-weight: 500;
+            font-size: 0.9rem;
+            color: #333;
+            position: relative;
+        }
+
+        .nav-link::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%) scaleX(0);
+            transform-origin: center;
+            height: 2px;
+            width: 100%;
+            background-color: #112180;
+            transition: transform 0.3s ease;
+        }
+
+        .nav-link:hover::after {
+            transform: translateX(-50%) scaleX(1);
+        }
+
+        .form-control {
+            width: 250px;
+        }
+
+        .icon {
+            font-size: 1.2rem;
+            margin-right: 4px;
+        }
+
+        .icon-group:hover {
+            background-color: rgb(235, 235, 235);
+            border-radius: 10px;
+            transition: background-color 0.3s;
+        }
+
+        .bag-count {
+            position: absolute;
+            top: 2px;
+            right: 2px;
+            background-color: #ff4d4d;
+            color: white;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            font-weight: bold;
+            z-index: 2;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.12);
+        }
+
+        a {
+            text-decoration: none;
+            color: #333;
+        }
+
+        .bag-container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+
+        .bag-header h1 {
+            font-weight: 600;
+            color: #111;
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .bag-items,
+        .bag-summary {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            padding: 1.5rem;
+        }
+
+        .bag-item {
+            display: flex;
+            align-items: center;
+            padding: 1rem 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .bag-item:last-child {
+            border-bottom: none;
+        }
+
+        .item-image {
+            width: 80px;
+            height: 80px;
+            object-fit: cover;
+            border-radius: 4px;
+            margin-right: 1.5rem;
+        }
+
+        .item-details {
+            flex-grow: 1;
+        }
+
+        .item-name {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .item-category {
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .item-remove {
+            color: #ff4d4d;
+            cursor: pointer;
+            background: none;
+            border: none;
+            font-size: 0.9rem;
+        }
+
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 1rem;
+        }
+
+        .checkout-btn {
+            width: 100%;
+            background-color: #112190;
+            color: white;
+            border: none;
+            padding: 0.8rem;
+            border-radius: 6px;
+            font-weight: 600;
+        }
+
+        .checkout-btn:hover {
+            background-color: #0c1761;
+        }
+
+        footer {
+            background-color: #f8f9fa;
+            padding: 30px 0;
+        }
+
+        .footer-links a {
+            color: #333;
+            text-decoration: none;
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        .footer-links a:hover {
+            color: #112190;
+        }
+        address a:hover{
+            color: #112190;
+        }
+
+        @media (max-width: 768px) {
+            .bag-item {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .item-image {
+                margin-bottom: 1rem;
+                margin-right: 0;
+            }
+
+            .form-control {
+                width: 100px;
+            }
+        }
+        .cart-item {
+            transition: all 0.3s ease;
+        }
+        .remove-btn {
+            background-color: #ff4d4d;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background-color 0.3s;
+        }
+        .remove-btn:hover {
+            background-color: #e60000;
+        }
+        .quantity-control {
+            display: flex;
+            align-items: center;
+        }
+        .quantity-btn {
+            background-color: #f0f0f0;
+            border: 1px solid #ddd;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+        .quantity-input {
+            width: 50px;
+            text-align: center;
+            margin: 0 5px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg bg-white border-bottom">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#"><img src="logoecriture.png" alt="Logo" /></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavbar">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="mainNavbar">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item mx-3"><a class="nav-link" href="index.html">HOME</a></li>
+                    <li class="nav-item mx-3"><a class="nav-link" href="men.html">MEN <sup
+                                style="font-size: 0.9rem; color: #dc3545; font-weight: 700;">Promo</sup></a></li>
+                    <li class="nav-item mx-3"><a class="nav-link" href="women.html">WOMEN</a></li>
+                    <li class="nav-item mx-3"><a class="nav-link" href="kids.html">KIDS <sup
+                                style="font-size: 0.9rem; color: #dc3545; font-weight: 700;">Promo</sup></a></li>
+                    <li class="nav-item mx-3"><a class="nav-link" href="contact.php">CONTACT-US</a></li>
+                </ul>
+                <form class="d-flex mx-2 align-items-center">
+                    <i class="bi bi-search icon"></i>
+                    <input class="form-control me-2" type="search" placeholder="Search for products" />
+                </form>
+                <div class="text-center mx-2 icon-group p-2">
+                    <a href="bag.html">
+                        <i class="bi bi-bag icon"></i>
+                        <div class="icon-text">Bag</div>
+                        <span class="bag-count" id="bagCounter">0</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+ <main class="container py-5">
+        <h2 class="mb-4">Your Shopping Bag</h2>
+        
+        <div class="row">
+            <div class="col-md-8">
+                <div id="cartItemsContainer">
+                    <!-- Les articles du panier seront ajoutés ici par JavaScript -->
+                </div>
+            </div>
+            
+            <div class="col-md-4">
+                <div class="card p-3">
+                    <h5>Order Summary</h5>
+                    <div class="d-flex justify-content-between mb-2">
+                        <span>Subtotal:</span>
+                        <span id="subtotal">0 DH</span>
+                    </div>
+                    <div class="d-flex justify-content-between mb-3">
+                        <span>Shipping:</span>
+                        <span>Free</span>
+                    </div>
+                    <hr>
+                    <div class="d-flex justify-content-between mb-3">
+                        <strong>Total:</strong>
+                        <strong id="total">0 DH</strong>
+                    </div>
+                    <button class="btn btn-dark w-100">Checkout</button>
+                </div>
+            </div>
+        </div>
+    </main>
+    <!-- Footer -->
+    <hr class="my-4 bg-light" />
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <h5 class="mb-4">Follow <strong>@Digital Partners</strong></h5>
+                    <div class="footer-links">
+                        <a href="#"><i class="bi bi-facebook"></i> Facebook</a>
+                        <a href="#"><i class="bi bi-instagram"></i> Instagram</a>
+                        <a href="#"><i class="bi bi-pinterest"></i> Pinterest</a>
+                        <a href="#"><i class="bi bi-tiktok"></i> TikTok</a>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <h5 class="mb-4">Quick Links</h5>
+                    <div class="footer-links">
+                        <a href="index.html">Home</a>
+                        <a href="men.html">Men</a>
+                        <a href="women.html">Women</a>
+                        <a href="kids.html">Kids</a>
+                        <a href="contact.php">Contact-Us</a>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <h5 class="mb-4">Customer Service</h5>
+                    <div class="footer-links">
+                        <a href="signup.php">My Account</a>
+                        <a href="whishlist.html">Wishlist</a>
+                        <a href="bag.html">Bag</a>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <h5 class="mb-4">Contact Us</h5>
+                    <address>
+                        <p><a href="https://maps.app.goo.gl/iKbqP3HF9yxf2kjH7"><i
+                                    class="fas fa-map-marker-alt me-2"></i> ISTA AL ADARISSA</a></p>
+                        <p><i class="fas fa-phone me-2"></i> (+212)612345678</p>
+                        <p><a href="mailto:digitalpartner212@gmail.com"><i class="fas fa-envelope me-2"></i> digitalpartner212@gmail.com</p></a>
+                    </address>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+ <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="cart.js"></script>
+<script>
+function updateCartTotals() {
+    const cart = getCart();
+    const subtotal = cart.reduce((sum, item) => sum + (item.price * (item.quantity || 1)), 0);
+    document.getElementById('subtotal').textContent = `${subtotal.toFixed(2)} DH`;
+    document.getElementById('total').textContent = `${subtotal.toFixed(2)} DH`;
+}
+
+function renderCartItems() {
+    const cart = getCart();
+    const container = document.getElementById('cartItemsContainer');
+    container.innerHTML = '';
+
+    if (cart.length === 0) {
+        container.innerHTML = '<p>Your bag is empty</p>';
+        updateCartTotals();
+        return;
+    }
+
+    cart.forEach((item, index) => {
+        const itemElement = document.createElement('div');
+        itemElement.className = 'cart-item mb-4 p-3 border-bottom';
+        itemElement.innerHTML = `
+            <div class="row align-items-center">
+                <div class="col-md-2">
+                    <img src="${item.image}" alt="${item.name}" class="img-fluid" style="max-height: 100px;">
+                </div>
+                <div class="col-md-4">
+                    <h5>${item.name}</h5>
+                    <p>Size: ${item.selectedSize} | Color: ${item.selectedColor}</p>
+                    <p class="item-category">${item.category || ''}</p>
+                </div>
+                <div class="col-md-2">
+                    <p>${item.price} DH</p>
+                </div>
+                <div class="col-md-2 quantity-control">
+                    <button class="quantity-btn" onclick="changeQuantity(${index}, -1)">-</button>
+                    <input type="number" class="form-control quantity-input" value="${item.quantity}" min="1" 
+                           onchange="updateQuantity(${index}, this.value)">
+                    <button class="quantity-btn" onclick="changeQuantity(${index}, 1)">+</button>
+                </div>
+                <div class="col-md-2">
+                    <p><strong>${(item.price * item.quantity).toFixed(2)} DH</strong></p>
+                </div>
+                <div class="col-md-2">
+                    <button class="remove-btn" onclick="removeItem(${index})">
+                        <i class="bi bi-trash"></i> Remove
+                    </button>
+                </div>
+            </div>
+        `;
+        container.appendChild(itemElement);
+    });
+
+    updateCartTotals();
+}
+
+function updateQuantity(index, newQuantity) {
+    const cart = getCart();
+    if (index >= 0 && index < cart.length) {
+        cart[index].quantity = Math.max(1, parseInt(newQuantity) || 1);
+        saveCart(cart);
+        // No need to call renderCartItems, cart.js will trigger notifyCartChanged
+    }
+}
+
+function changeQuantity(index, delta) {
+    const cart = getCart();
+    if (index >= 0 && index < cart.length) {
+        cart[index].quantity = Math.max(1, (cart[index].quantity || 1) + delta);
+        saveCart(cart);
+    }
+}
+
+function removeItem(index) {
+    removeFromCart(index);
+    // No need to call renderCartItems, cart.js will trigger notifyCartChanged
+}
+
+// Listen for cart changes and update UI
+document.addEventListener('DOMContentLoaded', function() {
+    renderCartItems();
+    updateCartCounter();
+    onCartChange(function() {
+        renderCartItems();
+        updateCartCounter();
+    });
+});
+</script>    </body>
+
+</html>

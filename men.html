@@ -1,0 +1,953 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Store | Men = King</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+    <link rel="icon" href="minilogo.png" type="image/x-icon" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        html,
+        body {
+            height: 100%;
+            margin: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            overflow-x: hidden;
+            background-color: #f8f8f8;
+        }
+
+        /* Navbar */
+        .navbar-brand img {
+            height: 30px;
+        }
+
+        .nav-link {
+            font-weight: 500;
+            font-size: 0.9rem;
+            color: #333;
+            position: relative;
+        }
+
+        .nav-link::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%) scaleX(0);
+            transform-origin: center;
+            height: 2px;
+            width: 100%;
+            background-color: #112180;
+            transition: transform 0.3s ease;
+        }
+
+        .nav-link:hover::after {
+            transform: translateX(-50%) scaleX(1);
+        }
+
+        .form-control {
+            width: 250px;
+        }
+
+        .icon {
+            font-size: 1.2rem;
+            margin-right: 4px;
+        }
+
+        .icon-group {
+            position: relative;
+        }
+
+        .icon-group:hover {
+            background-color: rgb(235, 235, 235);
+            border-radius: 10px;
+            transition: background-color 0.3s;
+        }
+
+        a {
+            text-decoration: none;
+            color: #333;
+        }
+
+        /* Hero Section */
+        .gradient-mask {
+            position: relative;
+            display: flex;
+            justify-content: flex-end;
+            width: 100%;
+            overflow: hidden;
+            background-color: #f8f8f8;
+        }
+
+        .gradient-mask img {
+            width: 52%;
+            max-width: none;
+            object-fit: cover;
+            -webkit-mask-image: linear-gradient(to right, transparent 0%, rgba(0, 0, 0, 0.3) 8%, black 30%, black 100%);
+            mask-image: linear-gradient(to right, transparent 0%, rgba(0, 0, 0, 0.3) 8%, black 30%, black 100%);
+            -webkit-mask-size: 100%;
+            mask-size: 100%;
+            -webkit-mask-repeat: no-repeat;
+            mask-repeat: no-repeat;
+            animation: fadeSlide 1.2s ease-out forwards;
+        }
+
+        .fade-text {
+            position: absolute;
+            top: 50%;
+            left: 5%;
+            transform: translateY(-50%);
+            color: #111;
+            font-size: clamp(1rem, 2.5vw, 2rem);
+            font-weight: bold;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+            animation: fadeText 1.4s ease-in-out forwards;
+        }
+
+        .hero-section {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-container {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            width: 100%;
+            height: 90vh;
+            background-color: #f8f8f8;
+        }
+
+        .hero-img {
+            width: 60%;
+            object-fit: cover;
+            -webkit-mask-image: linear-gradient(to right, transparent 0%, rgba(0, 0, 0, 0.3) 10%, black 35%, black 100%);
+            mask-image: linear-gradient(to right, transparent 0%, rgba(0, 0, 0, 0.3) 10%, black 35%, black 100%);
+            -webkit-mask-size: 100%;
+            mask-size: 100%;
+            -webkit-mask-repeat: no-repeat;
+            mask-repeat: no-repeat;
+            animation: fadeSlide 1.2s ease-out forwards;
+        }
+
+        .hero-content {
+            position: absolute;
+            left: 5%;
+            max-width: 500px;
+            color: #111;
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.07);
+            animation: fadeText 1.4s ease-out forwards;
+        }
+
+        .hero-title {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 15px;
+        }
+
+        .hero-desc {
+            font-size: 1.1rem;
+            color: #444;
+        }
+
+        .btn-shop {
+            background-color: #ff4d4d;
+            color: white;
+            padding: 12px 24px;
+            border-radius: 6px;
+            font-weight: 600;
+            transition: background-color 0.3s ease;
+            margin-top: 10px;
+            display: inline-block;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn-shop:hover {
+            background-color: #e60000;
+        }
+
+        /* Animations */
+        @keyframes fadeSlide {
+            from {
+                opacity: 0;
+                transform: translateX(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes fadeText {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Footer */
+        footer {
+            background-color: #f8f9fa;
+            padding: 30px 0;
+        }
+
+        .footer-links a {
+            color: #333;
+            text-decoration: none;
+            display: block;
+            margin-bottom: 10px;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: #112190;
+        }
+        address a:hover{
+            color: #112190;
+        }
+
+        /* Category Section */
+        .shop-category {
+            text-align: center;
+            background-color: #f7f9fb;
+            padding: 3rem 1rem;
+        }
+
+        .shop-category h2 {
+            font-weight: 600;
+            font-size: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .shop-category h2 span {
+            border-bottom: 3px solid #ff4d4d;
+            padding-bottom: 5px;
+            color: #111;
+        }
+
+        .category-grid {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .category-card {
+            position: relative;
+            width: 380px;
+            border-radius: 12px;
+            overflow: hidden;
+            cursor: pointer;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+            background-color: #fff;
+        }
+
+        .category-card:hover {
+            transform: translateY(-8px);
+        }
+
+        .category-card img {
+            width: 100%;
+            height: 350px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .overlay {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            padding: 1.25rem 1rem;
+            color: white;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.7), transparent 60%);
+            box-sizing: border-box;
+        }
+
+        .overlay h3 {
+            margin: 0;
+            font-size: 1.25rem;
+            font-weight: 700;
+        }
+
+        .shop-link {
+            display: inline-block;
+            margin-top: 8px;
+            font-size: 0.9rem;
+            color: white;
+            text-decoration: underline;
+            font-weight: 500;
+        }
+
+        .shop-link:hover {
+            color: #ff4d4d;
+            text-decoration: none;
+        }
+
+        /* Responsive */
+        @media (max-width: 900px) {
+            .category-grid {
+                justify-content: center;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .gradient-mask {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .gradient-mask img {
+                width: 100%;
+                -webkit-mask-image: none;
+                mask-image: none;
+            }
+
+            .fade-text,
+            .hero-content {
+                position: static;
+                transform: none;
+                text-align: center;
+                padding: 15px;
+                margin-top: -20px;
+                background-color: transparent;
+                box-shadow: none;
+            }
+
+            .form-control {
+                width: 100px;
+            }
+
+            .navbar-nav {
+                text-align: center;
+            }
+
+            .btn-shop {
+                margin-top: 15px;
+            }
+
+            .hero-title {
+                font-size: 1.8rem;
+            }
+
+            .hero-desc {
+                font-size: 1rem;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .category-card {
+                width: 90%;
+                max-width: 350px;
+            }
+        }
+
+        .card {
+            border: none;
+            overflow: hidden;
+            transition: transform 0.3s;
+        }
+
+        .card:hover {
+            transform: scale(1.03);
+        }
+
+        .image-container {
+            position: relative;
+            width: 100%;
+            overflow: hidden;
+        }
+
+        .image-container img {
+            width: 100%;
+            display: block;
+            transition: opacity 0.4s ease;
+        }
+
+        .hover-img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            opacity: 0;
+        }
+
+        .image-container:hover .hover-img {
+            opacity: 1;
+        }
+
+        .image-container:hover .main-img {
+            opacity: 0;
+        }
+
+        .bag-count {
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            background-color: #ff4d4d;
+            color: white;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            display: none;
+            /* Hidden by default */
+            align-items: center;
+            justify-content: center;
+            font-size: 0.7rem;
+            font-weight: bold;
+        }
+
+        .bag-icon-container {
+            position: relative;
+        }
+
+        .card {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .image-container {
+            height: 300px;
+        }
+
+        .image-container img {
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .card-body {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg bg-white border-bottom">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">
+                <img src="logoecriture.png" alt="Logo">
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavbar">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="mainNavbar">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item mx-3"><a class="nav-link" href="index.html">HOME</a></li>
+                    <li class="nav-item mx-3"><a class="nav-link" href="men.html">MEN <sup
+                                style="font-size: 0.9rem; color: #dc3545; font-weight: 700;">Promo</sup></a></li>
+                    <li class="nav-item mx-3"><a class="nav-link" href="women.html">WOMEN</a></li>
+                    <li class="nav-item mx-3"><a class="nav-link" href="kids.html">KIDS <sup
+                                style="font-size: 0.9rem; color: #dc3545; font-weight: 700;">Promo</sup></a></li>
+                    <li class="nav-item mx-3"><a class="nav-link" href="contact.php">CONTACT-US</a></li>
+                </ul>
+                <form class="d-flex mx-2 align-items-center">
+                    <i class="bi bi-search icon"></i>
+                    <input class="form-control me-2" type="search" placeholder="Search for products" id="searchInput">
+                </form>
+                <div class="d-flex align-items-center">
+                    <div class="text-center mx-2 icon-group p-2"><a href="signup.php"><i class="bi bi-person icon"></i>
+                            <div class="icon-text">Profile</div>
+                        </a></div>
+                    <div class="text-center mx-2 icon-group p-2">
+                        <a href="whishlist.html">
+                            <i class="bi bi-cart icon"></i>
+                            <div class="icon-text">Wishlist</div>
+                            <span class="bag-count" id="wishlistCounter" style="background:#112180;right:-10px;top:-10px;">0</span>
+                        </a>
+                    </div>
+                    <div class="text-center mx-2 icon-group p-2 bag-icon-container">
+                        <a href="bag.html"><i class="bi bi-bag icon"></i>
+                            <div class="icon-text">Bag</div>
+                            <span class="bag-count" id="bagCounter">0</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <main>
+        <div class="container py-5">
+            <h2 class="text-center mb-4">🛍️ Shop Your Style King</h2>
+            <div class="row g-4">
+                <!-- START: Product Cards -->
+                <!-- Card 1 -->
+                <div class="col-md-4 col-lg-3">
+                    <div class="card">
+                        <div class="image-container">
+                            <img src="homme1.jpg" class="main-img product-image" alt="Main" 
+                            data-product-id="1"
+                            data-product-name="Black & White Checked Hoodie"
+                            data-product-price="200"
+                            data-product-old-price="350"
+                            data-product-images="homme1.jpg,homme2.jpg">
+                            <img src="homme2.jpg" class="hover-img product-image" alt="Hover"
+                            data-product-id="1"
+                            data-product-name="Black & White Checked Hoodie"
+                            data-product-price="200"
+                            data-product-old-price="350"
+                            data-product-images="homme1.jpg,homme2.jpg">
+                        </div>
+                        <div class="card-body text-center">
+                            <h5 class="card-title">Black & White Checked Hoodie</h5>
+                            <p class="card-text">200 DH <s style="color: #e60000;">350 DH</s></p>
+                            <button class="btn btn-dark btn-add-to-bag">Add to Bag</button><br>
+                            <button class="btn btn-dark">Add to Wishlist</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="col-md-4 col-lg-3">
+                    <div class="card">
+                        <div class="image-container">
+                            <img src="homme3.jpg" class="main-img product-image" alt="Main" 
+                            data-product-id="2"
+                            data-product-name="Plain Black Hoodie"
+                            data-product-price="180"
+                            data-product-old-price="180"
+                            data-product-images="homme3.jpg,homme4.jpg">
+                            <img src="homme4.jpg" class="hover-img product-image" alt="Hover"
+                            data-product-id="2"
+                            data-product-name="Plain Black Hoodie"
+                            data-product-price="180"
+                            data-product-old-price="180"
+                            data-product-images="homme3.jpg,homme4.jpg">
+                        </div>
+                        <div class="card-body text-center">
+                            <h5 class="card-title">Plain Black Hoodie</h5>
+                            <p class="card-text">180 DH</p>
+                            <button class="btn btn-dark btn-add-to-bag">Add to Bag</button><br>
+                            <button class="btn btn-dark">Add to Wishlist</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="col-md-4 col-lg-3">
+                    <div class="card">
+                        <div class="image-container">
+                            <img src="homme6.jpg" class="main-img product-image" alt="Main" 
+                            data-product-id="3"
+                            data-product-name="Plain Black T-Shirt"
+                            data-product-price="95"
+                            data-product-old-price="120"
+                            data-product-images="homme6.jpg,homme5.jpg">
+                            <img src="homme5.jpg" class="hover-img product-image" alt="Hover" 
+                            data-product-id="3"
+                            data-product-name="Plain Black T-Shirt"
+                            data-product-price="95"
+                            data-product-old-price="120"
+                            data-product-images="homme6.jpg,homme5.jpg">
+                        </div>
+                        <div class="card-body text-center">
+                            <h5 class="card-title">Plain Black T-Shirt</h5>
+                            <p class="card-text">95 DH <s style="color: #e60000;">120 DH</s></p>
+                            <button class="btn btn-dark btn-add-to-bag">Add to Bag</button><br>
+                            <button class="btn btn-dark">Add to Wishlist</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 4 -->
+                <div class="col-md-4 col-lg-3">
+                    <div class="card">
+                        <div class="image-container">
+                            <img src="homme7.jpg" class="main-img product-image" alt="Main" 
+                            data-product-id="4"
+                            data-product-name="WhiteSweatshirt (California Text)"
+                            data-product-price="180"
+                            data-product-old-price="180"
+                            data-product-images="homme7.jpg,homme8.jpg">
+                            <img src="homme8.jpg" class="hover-img product-image" alt="Hover" 
+                            data-product-id="4"
+                            data-product-name="WhiteSweatshirt (California Text)"
+                            data-product-price="180"
+                            data-product-old-price="180"
+                            data-product-images="homme7.jpg,homme8.jpg">
+                        </div>
+                        <div class="card-body text-center">
+                            <h5 class="card-title">WhiteSweatshirt (California Text)</h5>
+                            <p class="card-text">180 DH</p>
+                            <button class="btn btn-dark btn-add-to-bag">Add to Bag</button><br>
+                            <button class="btn btn-dark">Add to Wishlist</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 5 -->
+                <div class="col-md-4 col-lg-3">
+                    <div class="card">
+                        <div class="image-container">
+                            <img src="homme9.jpg" class="main-img product-image" alt="Main" 
+                            data-product-id="5"
+                            data-product-name="Black Sweater With Shirt Collar"
+                            data-product-price="210"
+                            data-product-old-price="350"
+                            data-product-images="homme9.jpg,homme10.jpg">
+                            <img src="homme10.jpg" class="hover-img product-image" alt="Hover" 
+                            data-product-id="5"
+                            data-product-name="Black Sweater With Shirt Collar"
+                            data-product-price="210"
+                            data-product-old-price="350"
+                            data-product-images="homme9.jpg,homme10.jpg">
+                        </div>
+                        <div class="card-body text-center">
+                            <h5 class="card-title">Black Sweater with Shirt Collar</h5>
+                            <p class="card-text">210 DH <s style="color: #e60000;">350 DH</s></p>
+                            <button class="btn btn-dark btn-add-to-bag">Add to Bag</button><br>
+                            <button class="btn btn-dark">Add to Wishlist</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 6 -->
+                <div class="col-md-4 col-lg-3">
+                    <div class="card">
+                        <div class="image-container">
+                            <img src="homme12.jpg" class="main-img product-image" alt="Main" 
+                            data-product-id="6"
+                            data-product-name="Blue Adidas-Style Jacket"
+                            data-product-price="290"
+                            data-product-old-price="400"
+                            data-product-images="homme12.jpg,homme11.jpg">
+                            <img src="homme11.jpg" class="hover-img product-image" alt="Hover" 
+                            data-product-id="6"
+                            data-product-name="Blue Adidas-Style Jacket"
+                            data-product-price="290"
+                            data-product-old-price="400"
+                            data-product-images="homme12.jpg,homme11.jpg">
+                        </div>
+                        <div class="card-body text-center">
+                            <h5 class="card-title">Blue Adidas-Style Jacket</h5>
+                            <p class="card-text">290 DH <s style="color: #e60000;">400 DH</s></p>
+                            <button class="btn btn-dark btn-add-to-bag">Add to Bag</button><br>
+                            <button class="btn btn-dark">Add to Wishlist</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 7 -->
+                <div class="col-md-4 col-lg-3">
+                    <div class="card">
+                        <div class="image-container">
+                            <img src="homme13.jpg" class="main-img product-image" alt="Main" 
+                            data-product-id="7"
+                            data-product-name="Black Nike-Style Jacket"
+                            data-product-price="230"
+                            data-product-old-price="230"
+                            data-product-images="homme13.jpg,homme14.jpg">
+                            <img src="homme14.jpg" class="hover-img product-image" alt="Hover" 
+                            data-product-id="7"
+                            data-product-name="Black Nike-Style Jacket"
+                            data-product-price="230"
+                            data-product-old-price="230"
+                            data-product-images="homme13.jpg,homme14.jpg">
+                        </div>
+                        <div class="card-body text-center">
+                            <h5 class="card-title">Black Nike-Style Jacket </h5>
+                            <p class="card-text">230 DH</p>
+                            <button class="btn btn-dark btn-add-to-bag">Add to Bag</button><br>
+                            <button class="btn btn-dark">Add to Wishlist</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 8 -->
+                <div class="col-md-4 col-lg-3">
+                    <div class="card">
+                        <div class="image-container">
+                            <img src="homme15.jpg" class="main-img product-image" alt="Main" 
+                            data-product-id="8"
+                            data-product-name="Sleevless Black Tee"
+                            data-product-price="50"
+                            data-product-old-price="120"
+                            data-product-images="homme15.jpg,homme16.jpg"
+                            >
+                            <img src="homme16.jpg" class="hover-img product-image" alt="Hover" 
+                            data-product-id="8"
+                            data-product-name="Sleevless Black Tee"
+                            data-product-price="50"
+                            data-product-old-price="120"
+                            data-product-images="homme15.jpg,homme16.jpg">
+                        </div>
+                        <div class="card-body text-center">
+                            <h5 class="card-title">Sleevless Black Tee</h5>
+                            <p class="card-text">50 DH <s style="color: #e60000;">120 DH</s> </p>
+                            <button class="btn btn-dark btn-add-to-bag">Add to Bag</button><br>
+                            <button class="btn btn-dark">Add to Wishlist</button>
+                        </div>
+                    </div>
+                </div>
+                <!-- END: Product Cards -->
+            </div>
+        </div>
+    </main>
+    <!-- Footer -->
+    <hr class="my-4 bg-light">
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <h5 class="mb-4">Follow <strong>@Digital Partners</strong></h5>
+                    <div class="footer-links">
+                        <a href="#"><i class="bi bi-facebook"></i> Facebook</a>
+                        <a href="#"><i class="bi bi-instagram"></i> Instagram</a>
+                        <a href="#"><i class="bi bi-pinterest"></i> Pinterest</a>
+                        <a href="#"><i class="bi bi-tiktok"></i> TikTok</a>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <h5 class="mb-4">Quick Links</h5>
+                    <div class="footer-links">
+                        <a href="index.html">Home</a>
+                        <a href="men.html">Men</a>
+                        <a href="women.html">Women</a>
+                        <a href="kids.html">Kids</a>
+                        <a href="contact.php">Contact-Us</a>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <h5 class="mb-4">Customer Service</h5>
+                    <div class="footer-links">
+                        <a href="signup.php">My Account</a>
+                        <a href="whishlist.html">Wishlist</a>
+                        <a href="bag.html">Bag</a>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <h5 class="mb-4">Contact Us</h5>
+                    <address>
+                        <p><a href="https://maps.app.goo.gl/iKbqP3HF9yxf2kjH7"><i class="fas fa-map-marker-alt me-2"></i> ISTA AL ADARISSA</a></p>
+                        <p><i class="fas fa-phone me-2"></i> (+212)612345678</p>
+                        <p><a href="mailto:digitalpartner212@gmail.com"><i class="fas fa-envelope me-2"></i> digitalpartner212@gmail.com</p></a>
+                    </address>
+                </div>
+            </div>
+            <hr class="my-4 bg-light">
+            <div class="row">
+                <div class="text-center">
+                    <p class="mb-0">&copy; 2025. Tous droits réservés.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+<script src="cart.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+// Real-time search functionality (match any part of the product name)
+document.addEventListener('DOMContentLoaded', function() {
+    const searchInput = document.getElementById('searchInput');
+    const productCards = Array.from(document.querySelectorAll('.card'));
+    searchInput.addEventListener('input', function() {
+        const query = searchInput.value.trim().toLowerCase();
+        productCards.forEach(card => {
+            const title = card.querySelector('.card-title')?.textContent.toLowerCase() || '';
+            if (query === '' || title.includes(query)) {
+                card.parentElement.style.display = '';
+            } else {
+                card.parentElement.style.display = 'none';
+            }
+        });
+    });
+});
+// Gestion du clic sur les images
+document.querySelectorAll('.product-image').forEach(img => {
+    img.addEventListener('click', function() {
+        const product = {
+            id: this.getAttribute('data-product-id'),
+            name: this.parentElement.parentElement.querySelector('.card-title').textContent,
+            price: parseFloat(this.getAttribute('data-product-price')),
+            oldPrice: parseFloat(this.getAttribute('data-product-old-price')) || null,
+            image: this.src,
+            mainImage: this.src,
+            hoverImage: this.classList.contains('main-img') 
+                ? this.parentElement.querySelector('.hover-img').src 
+                : this.parentElement.querySelector('.main-img').src,
+            selectedSize: 'M',
+            selectedColor: 'Noir'
+        };
+        
+        localStorage.setItem('selectedProduct', JSON.stringify(product));
+        window.location.href = 'mendetail.html';
+    });
+});
+
+// Gestion des boutons "Add to Bag"
+document.querySelectorAll('.btn-add-to-bag').forEach(btn => {
+    btn.addEventListener('click', function(e) {
+        e.stopPropagation();
+        const card = this.closest('.card');
+        const mainImg = card.querySelector('.main-img');
+        const hoverImg = card.querySelector('.hover-img');
+        const product = {
+            id: mainImg.getAttribute('data-product-id'),
+            name: card.querySelector('.card-title').textContent,
+            price: parseFloat(mainImg.getAttribute('data-product-price')),
+            oldPrice: parseFloat(mainImg.getAttribute('data-product-old-price')) || null,
+            image: mainImg.src,
+            mainImage: mainImg.src,
+            hoverImage: hoverImg ? hoverImg.src : null,
+            selectedSize: 'M',
+            selectedColor: 'Noir',
+            category: "Men's Clothing",
+            quantity: 1
+        };
+        addToCart(product);
+        updateCartCounter(); // Ajouté pour mettre à jour le compteur
+        showNotification(`${product.name} ajouté au panier!`);
+    });
+});
+
+function showNotification(message) {
+    const notification = document.createElement('div');
+    notification.textContent = message;
+    notification.setAttribute('aria-label', 'Notification');
+    notification.style.position = 'fixed';
+    notification.style.bottom = '20px';
+    notification.style.right = '20px';
+    notification.style.backgroundColor = '#112180';
+    notification.style.color = 'white';
+    notification.style.padding = '15px 25px';
+    notification.style.borderRadius = '5px';
+    notification.style.zIndex = '1000';
+    notification.style.transition = 'opacity 0.5s';
+    document.body.appendChild(notification);
+    setTimeout(() => {
+        notification.style.opacity = '0';
+        setTimeout(() => notification.remove(), 500);
+    }, 2000);
+}
+
+// Initialisation du compteur de panier
+document.addEventListener('DOMContentLoaded', function() {
+    updateCartCounter();
+    updateWishlistCounter();
+});
+
+function addToWishlist(product) {
+    const wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
+    const exists = wishlist.some(item =>
+        item.id === product.id &&
+        item.selectedSize === product.selectedSize &&
+        item.selectedColor === product.selectedColor
+    );
+    if (!exists) {
+        wishlist.push(product);
+        localStorage.setItem('wishlist', JSON.stringify(wishlist));
+        showNotification(`${product.name} ajouté à la wishlist!`);
+        updateWishlistCounter();
+    } else {
+        showNotification(`${product.name} est déjà dans la wishlist.`);
+        updateWishlistCounter();
+    }
+}
+
+// Attach event listeners for wishlist/bag buttons after DOM is loaded
+document.addEventListener('DOMContentLoaded', function() {
+    updateCartCounter();
+    updateWishlistCounter();
+
+    // Use event delegation for scalability
+    document.querySelector('.container').addEventListener('click', function(e) {
+        if (e.target.classList.contains('btn-add-to-bag')) {
+            e.stopPropagation();
+            const card = e.target.closest('.card');
+            const mainImg = card.querySelector('.main-img.product-image');
+            const hoverImg = card.querySelector('.hover-img.product-image');
+            const product = {
+                id: mainImg.getAttribute('data-product-id'),
+                name: card.querySelector('.card-title').textContent,
+                price: parseFloat(mainImg.getAttribute('data-product-price')),
+                oldPrice: parseFloat(mainImg.getAttribute('data-product-old-price')) || null,
+                image: mainImg.src,
+                mainImage: mainImg.src,
+                hoverImage: hoverImg ? hoverImg.src : null,
+                selectedSize: 'M',
+                selectedColor: 'Noir',
+                category: "Men's Clothing",
+                quantity: 1
+            };
+            addToCart(product);
+            updateCartCounter();
+            showNotification(`${product.name} ajouté au panier!`);
+        }
+        if (e.target.classList.contains('btn-dark') && !e.target.classList.contains('btn-add-to-bag')) {
+            e.stopPropagation();
+            const card = e.target.closest('.card');
+            const mainImg = card.querySelector('.main-img.product-image');
+            const hoverImg = card.querySelector('.hover-img.product-image');
+            let price = parseFloat(mainImg.getAttribute('data-product-price'));
+            let oldPrice = parseFloat(mainImg.getAttribute('data-product-old-price')) || null;
+            if (isNaN(price)) {
+                const priceText = card.querySelector('.card-text').textContent;
+                const priceMatch = priceText.match(/(\d+)\s*DH/);
+                price = priceMatch ? parseFloat(priceMatch[1]) : 0;
+                const oldPriceMatch = priceText.match(/<s[^>]*>(\d+)\s*DH<\/s>/);
+                oldPrice = oldPriceMatch ? parseFloat(oldPriceMatch[1]) : null;
+            }
+            const product = {
+                id: mainImg.getAttribute('data-product-id'),
+                name: card.querySelector('.card-title').textContent,
+                price: price,
+                oldPrice: oldPrice,
+                image: mainImg.src,
+                mainImage: mainImg.src,
+                hoverImage: hoverImg ? hoverImg.src : null,
+                selectedSize: 'M',
+                selectedColor: 'Noir',
+                category: "Men's Clothing",
+                quantity: 1
+            };
+            addToWishlist(product);
+        }
+    });
+
+    // Product image click logic remains unchanged
+    document.querySelectorAll('.product-image').forEach(img => {
+        img.addEventListener('click', function() {
+            const product = {
+                id: this.getAttribute('data-product-id'),
+                name: this.parentElement.parentElement.querySelector('.card-title').textContent,
+                price: parseFloat(this.getAttribute('data-product-price')),
+                oldPrice: parseFloat(this.getAttribute('data-product-old-price')) || null,
+                image: this.src,
+                mainImage: this.src,
+                hoverImage: this.classList.contains('main-img') 
+                    ? this.parentElement.querySelector('.hover-img').src 
+                    : this.parentElement.querySelector('.main-img').src,
+                selectedSize: 'M',
+                selectedColor: 'Noir'
+            };
+            localStorage.setItem('selectedProduct', JSON.stringify(product));
+            window.location.href = 'mendetail.html';
+        });
+    });
+});
+</script>
+ </body>
+
+</html>
