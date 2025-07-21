@@ -1,2 +1,2 @@
-# Digital Partner Store
+# ClothingStore
 A Clothing Store Created By @digital_partner.212
